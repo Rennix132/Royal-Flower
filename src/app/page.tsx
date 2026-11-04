@@ -1,69 +1,72 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import LoyaltyForm from "./loyalty-form";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+    <main className="page-shell">
+      <header className="site-header">
+        <Link aria-label="ROYAL FLOWERS — главная" className="brand" href="/">
+          <Image
+            alt=""
+            className="brand-logo"
+            height={76}
+            priority
+            src="/royal-flowers-logo.png"
+            width={76}
+          />
+          <span className="brand-name">
+            <span>ROYAL</span>
+            <span className="brand-subtitle">F L O W E R S</span>
+          </span>
+        </Link>
+        <span className="header-note">Цветы с особенным чувством</span>
+      </header>
+
+      <section aria-labelledby="welcome-title" className="welcome-section">
+        <div aria-hidden="true" className="flower-mark">
+          <svg viewBox="0 0 64 64" fill="none">
+            <path
+              d="M32 29.5c-8.6-8.2-5.7-18.8 0-22.8 5.7 4 8.6 14.6 0 22.8Z"
+              fill="currentColor"
+              opacity=".74"
             />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <path
+              d="M34.5 32c8.2-8.6 18.8-5.7 22.8 0-4 5.7-14.6 8.6-22.8 0Z"
+              fill="currentColor"
+              opacity=".57"
+            />
+            <path
+              d="M32 34.5c8.6 8.2 5.7 18.8 0 22.8-5.7-4-8.6-14.6 0-22.8Z"
+              fill="currentColor"
+              opacity=".42"
+            />
+            <path
+              d="M29.5 32c-8.2 8.6-18.8 5.7-22.8 0 4-5.7 14.6-8.6 22.8 0Z"
+              fill="currentColor"
+              opacity=".64"
+            />
+            <circle cx="32" cy="32" r="5" fill="#B77483" />
+          </svg>
         </div>
-      </main>
-    </div>
+        <p className="eyebrow">ВАША КАРТА ЛОЯЛЬНОСТИ</p>
+        <h1 id="welcome-title">
+          Добро пожаловать
+          <br />
+          в <span>ROYAL FLOWERS</span>
+        </h1>
+        <p className="welcome-copy">
+          Сохраните важные даты близких — чтобы они
+          <br className="desktop-break" /> всегда были под рукой.
+        </p>
+        <LoyaltyForm />
+      </section>
+
+      <footer className="site-footer">
+        <span>ROYAL FLOWERS</span>
+        <span aria-hidden="true" className="footer-dot">✿</span>
+        <Link href="/privacy">Обработка персональных данных</Link>
+      </footer>
+    </main>
   );
 }

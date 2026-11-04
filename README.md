@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ROYAL FLOWERS
 
-## Getting Started
+Мобильный сайт карты лояльности на Next.js. Анкеты и важные даты сохраняются в SQLite; база клиентов доступна сотрудникам через защищённую страницу `/admin`.
 
-First, run the development server:
+## Запуск
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Нужен Node.js 20.9 или новее.
+
+```powershell
+npm install
+Copy-Item .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Задайте в `.env.local` длинный уникальный пароль для панели. Для запуска разработки:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```powershell
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Для production:
 
-## Learn More
+```powershell
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+Панель клиентов: `http://localhost:3000/admin`. Имя пользователя — `admin`, пароль — значение `ADMIN_PASSWORD`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## База данных и публикация
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+По умолчанию SQLite создаётся в `data/royal-flowers.db`. Путь можно изменить переменной `DATABASE_PATH`; папка создаётся автоматически. Каталог `data` исключён из Git. Регулярно делайте резервную копию файла базы.
 
-## Deploy on Vercel
+Для публикации используйте Node.js-хостинг с постоянным диском и одним работающим экземпляром приложения. SQLite не подходит для serverless-хостинга с временной файловой системой или нескольких экземпляров без общего диска. В production обязательно задайте `ADMIN_PASSWORD`, включите HTTPS и настройте постоянный диск для базы до запуска сайта.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Страница конфиденциальности содержит общий текстовый шаблон. Перед публикацией дополните её юридическими сведениями об операторе персональных данных и контактами магазина, а также проверьте текст согласия и политики на соответствие требованиям вашей юрисдикции.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+После публикации создайте один QR-код на публичный HTTPS-адрес сайта и разместите его у кассы. QR-код ведёт прямо на анкету; клиентам не нужны приложение или учётная запись.
