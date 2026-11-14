@@ -8,19 +8,16 @@ export default function Home() {
       <header className="site-header">
         <Link aria-label="ROYAL FLOWERS — главная" className="brand" href="/">
           <Image
-            alt=""
+            alt="ROYAL FLOWERS"
             className="brand-logo"
-            height={76}
+            height={100}
             priority
-            src="/royal-flowers-logo.png"
-            width={76}
+            src="/royal-flowers-wordmark.png"
+            unoptimized
+            width={190}
           />
-          <span className="brand-name">
-            <span>ROYAL</span>
-            <span className="brand-subtitle">F L O W E R S</span>
-          </span>
         </Link>
-        <span className="header-note">Цветы с особенным чувством</span>
+        <span className="header-note">Эмоции в Деталях</span>
       </header>
 
       <section aria-labelledby="welcome-title" className="welcome-section">
@@ -50,15 +47,15 @@ export default function Home() {
               <circle cx="32" cy="32" r="5" fill="#B77483" />
             </svg>
           </div>
-          <p className="eyebrow">ВАША КАРТА ЛОЯЛЬНОСТИ</p>
+          <p className="eyebrow">КАРТА ЛОЯЛЬНОСТИ</p>
           <h1 id="welcome-title">
             Добро пожаловать
             <br />
             в <span>ROYAL FLOWERS</span>
           </h1>
           <p className="welcome-copy">
-            Сохраните важные даты близких — чтобы они
-            <br className="desktop-break" /> всегда были под рукой.
+            Оформите карту лояльности
+            <br className="desktop-break" /> ROYAL FLOWERS за минуту.
           </p>
         </div>
         <LoyaltyForm />
@@ -67,7 +64,7 @@ export default function Home() {
       <footer className="site-footer">
         <span>ROYAL FLOWERS</span>
         <span aria-hidden="true" className="footer-dot">✿</span>
-        <Link href="/privacy">Обработка персональных данных</Link>
+        <Link href="/privacy">Конфиденциальность</Link>
       </footer>
     </main>
   );

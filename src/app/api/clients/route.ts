@@ -1,121 +1,76 @@
-import { NextResponse } from "next/server";
-import { createClient, type ImportantDateInput } from "@/lib/db";
+import { randomInt } from "node:crypto";
+import { db } from "@/lib/supabase";
+import { parseClient } from "@/lib/validate";
 
-export const runtime = "nodejs";
+const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-type Registration = {
-  name: string;
-  phone: string;
-  consent: boolean;
-  importantDates: ImportantDateInput[];
-};
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+function newCardNumber() {
+  let s = "";
+  for (let i = 0; i < 8; i++) s += ALPHABET[randomInt(ALPHABET.length)];
+  return `RF-${s.slice(0, 4)}-${s.slice(4)}`;
 }
 
-function isCalendarDate(value: string) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    return false;
-  }
-
-  const [year, month, day] = value.split("-").map(Number);
-  const date = new Date(Date.UTC(year, month - 1, day));
-  return (
-    date.getUTCFullYear() === year &&
-    date.getUTCMonth() === month - 1 &&
-    date.getUTCDate() === day
-  );
-}
-
-function normalizePhone(value: string) {
-  if (!/^[\d+\s().-]+$/.test(value)) {
-    return null;
-  }
-
-  let digits = value.replace(/\D/g, "");
-  if (digits.length === 10) {
-    digits = `7${digits}`;
-  } else if (digits.length === 11 && digits.startsWith("8")) {
-    digits = `7${digits.slice(1)}`;
-  }
-
-  if (digits.length !== 11 || !digits.startsWith("7")) {
-    return null;
-  }
-
-  return `+${digits}`;
-}
-
-function validateRegistration(value: unknown):
-  | { registration: Registration }
-  | { error: string } {
-  if (!isRecord(value)) {
-    return { error: "Заполните форму и попробуйте ещё раз." };
-  }
-
-  const name = typeof value.name === "string" ? value.name.trim() : "";
-  const rawPhone = typeof value.phone === "string" ? value.phone.trim() : "";
-  const phone = normalizePhone(rawPhone);
-
-  if (!name || name.length > 100) {
-    return { error: "Укажите имя длиной не более 100 символов." };
-  }
-  if (!phone) {
-    return { error: "Введите корректный номер WhatsApp с кодом +7." };
-  }
-  if (value.consent !== true) {
-    return { error: "Для сохранения данных необходимо ваше согласие." };
-  }
-  if (!Array.isArray(value.importantDates)) {
-    return { error: "Проверьте список важных дат." };
-  }
-
-  const importantDates: ImportantDateInput[] = [];
-  for (const item of value.importantDates) {
-    if (!isRecord(item)) {
-      return { error: "Проверьте заполнение важных дат." };
-    }
-
-    const person = typeof item.person === "string" ? item.person.trim() : "";
-    const relation = typeof item.relation === "string" ? item.relation.trim() : "";
-    const date = typeof item.date === "string" ? item.date : "";
-
-    if (!person || person.length > 100 || !relation || relation.length > 60) {
-      return { error: "Заполните имя и повод для каждой важной даты." };
-    }
-    if (!isCalendarDate(date)) {
-      return { error: "Укажите корректную дату для каждого события." };
-    }
-
-    importantDates.push({ person, relation, date });
-  }
-
-  return {
-    registration: { name, phone, consent: true, importantDates },
-  };
-}
+const fail = (message: string, status: number) => Response.json({ error: message }, { status });
 
 export async function POST(request: Request) {
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json(
-      { error: "Не удалось прочитать данные формы. Попробуйте ещё раз." },
-      { status: 400 },
+  const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
+  if (!body) return fail("Некорректный запрос", 400);
+
+  // Скрытое поле-ловушка для ботов
+  if (typeof body.website === "string" && body.website !== "") return Response.json({ ok: true });
+
+  if (body.consent !== true) return fail("Нужно согласие на обработку данных", 400);
+
+  const parsed = parseClient(body);
+  if ("error" in parsed) return fail(parsed.error, 400);
+
+  const supabase = db();
+  let client: { id: string; card_number: string; full_name: string } | null = null;
+
+  for (let attempt = 0; attempt < 5 && !client; attempt++) {
+    const { data, error } = await supabase
+      .from("clients")
+      .insert({
+        full_name: parsed.name,
+        phone: parsed.phone,
+        card_number: newCardNumber(),
+        consent_at: new Date().toISOString(),
+      })
+      .select("id, card_number, full_name")
+      .single();
+
+    if (!error) {
+      client = data;
+    } else if (error.code === "23505" && error.message.includes("clients_phone_key")) {
+      return fail("Карта на этот номер уже оформлена. Если нужна помощь, обратитесь к нам в магазин.", 409);
+    } else if (error.code === "23505" && error.message.includes("clients_card_number_key")) {
+      continue; // случайно совпал номер карты — пробуем другой
+    } else {
+      console.error(error);
+      return fail("Не удалось сохранить. Попробуйте позже.", 500);
+    }
+  }
+  if (!client) return fail("Не удалось сохранить. Попробуйте позже.", 500);
+
+  const saved = client;
+  if (parsed.dates.length > 0) {
+    const { error } = await supabase.from("important_dates").insert(
+      parsed.dates.map((d) => ({
+        client_id: saved.id,
+        person: d.person,
+        relation: d.relation,
+        event_date: d.date,
+      })),
     );
+    if (error) {
+      console.error(error);
+      await supabase.from("clients").delete().eq("id", saved.id);
+      return fail("Не удалось сохранить. Попробуйте позже.", 500);
+    }
   }
 
-  const validation = validateRegistration(body);
-  if ("error" in validation) {
-    return NextResponse.json({ error: validation.error }, { status: 400 });
-  }
-
-  const result = createClient(
-    validation.registration.name,
-    validation.registration.phone,
-    validation.registration.importantDates,
+  return Response.json(
+    { cardNumber: saved.card_number, name: saved.full_name, dateCount: parsed.dates.length },
+    { status: 201 },
   );
-  return NextResponse.json(result);
 }

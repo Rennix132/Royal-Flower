@@ -102,33 +102,16 @@ input:focus-visible {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
   text-decoration: none;
 }
 
 .brand-logo {
-  width: 64px;
-  height: 64px;
-  border: 1px solid rgb(107 94 99 / 22%);
+  width: 104px;
+  height: 104px;
+  border: 3px solid rgb(255 255 255 / 88%);
   border-radius: 50%;
+  box-shadow: 0 8px 24px rgb(101 64 72 / 16%);
   object-fit: cover;
-}
-
-.brand-name {
-  display: flex;
-  flex-direction: column;
-  font-family: var(--serif);
-  font-size: 19px;
-  letter-spacing: 0.1em;
-  line-height: 1;
-}
-
-.brand-subtitle {
-  margin-top: 6px;
-  color: var(--muted);
-  font-family: var(--sans);
-  font-size: 9px;
-  letter-spacing: 0.31em;
 }
 
 .header-note {
@@ -392,13 +375,6 @@ input:focus-visible {
   text-underline-offset: 2px;
 }
 
-.form-error {
-  margin: 14px 0 0;
-  color: #a23442;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
 .submit-button {
   display: flex;
   width: 100%;
@@ -567,25 +543,11 @@ input:focus-visible {
   color: #b77c89;
 }
 
-.admin-shell,
 .privacy-shell {
   min-height: 100vh;
   background: #fbf7f4;
 }
 
-.admin-header {
-  display: flex;
-  height: 76px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 max(32px, calc((100% - 1120px) / 2));
-  border-bottom: 1px solid var(--line);
-  background: var(--paper);
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.admin-brand,
 .privacy-brand {
   color: var(--ink);
   font-family: var(--serif);
@@ -594,188 +556,14 @@ input:focus-visible {
   text-decoration: none;
 }
 
-.admin-content {
-  width: min(100% - 48px, 960px);
-  margin: 52px auto 80px;
-}
-
-.admin-title-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-}
-
-.admin-title-row .eyebrow {
-  margin: 0 0 8px;
-}
-
-.admin-title-row h1 {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: 42px;
-  font-weight: 400;
-}
-
-.admin-back-link,
 .privacy-back {
   color: var(--rose-dark);
   font-size: 12px;
   text-decoration: none;
 }
 
-.admin-back-link span,
 .privacy-back span {
   margin-left: 4px;
-}
-
-.admin-summary {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin: 25px 0 18px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.summary-number {
-  color: var(--rose);
-  font-family: var(--serif);
-  font-size: 28px;
-}
-
-.admin-empty {
-  padding: 52px 20px;
-  border: 1px solid var(--line);
-  background: var(--paper);
-  color: var(--muted);
-  text-align: center;
-}
-
-.admin-empty span {
-  color: #bb8290;
-  font-size: 27px;
-}
-
-.admin-empty p {
-  margin: 12px 0 0;
-  font-size: 13px;
-}
-
-.client-list {
-  display: grid;
-  gap: 13px;
-}
-
-.client-card {
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  gap: 28px;
-  padding: 22px 24px;
-  border: 1px solid var(--line);
-  background: var(--paper);
-}
-
-.client-name-line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 9px 12px;
-}
-
-.client-name-line h2 {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: 21px;
-  font-weight: 500;
-}
-
-.client-card-number {
-  color: var(--rose);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-}
-
-.client-phone {
-  display: inline-block;
-  margin-top: 9px;
-  color: var(--ink);
-  font-size: 13px;
-  text-decoration-color: #d8b8bf;
-  text-underline-offset: 3px;
-}
-
-.client-created {
-  margin: 8px 0 0;
-  color: #a39699;
-  font-size: 10px;
-}
-
-.client-actions {
-  margin-top: 16px;
-}
-
-.client-actions button {
-  padding: 7px 10px;
-  border: 1px solid #e8d8db;
-  border-radius: 3px;
-  background: #fffafa;
-  color: #87515e;
-  cursor: pointer;
-  font-size: 10px;
-}
-
-.client-actions button:hover:not(:disabled) {
-  background: #f8eeee;
-}
-
-.client-actions button:disabled {
-  cursor: wait;
-  opacity: 0.65;
-}
-
-.client-actions p {
-  margin: 7px 0 0;
-  color: #a23442;
-  font-size: 10px;
-}
-
-.dates-title {
-  margin: 2px 0 10px;
-  color: var(--rose);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-}
-
-.client-dates ul {
-  display: grid;
-  gap: 7px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.client-dates li {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px 9px;
-  font-size: 11px;
-  line-height: 1.5;
-}
-
-.client-dates li > span:first-child {
-  min-width: 100px;
-  color: #8d7c81;
-}
-
-.date-relation {
-  color: #9c8c90;
-}
-
-.no-dates {
-  margin: 0;
-  color: #a39699;
-  font-size: 11px;
 }
 
 .privacy-shell {
@@ -852,21 +640,13 @@ input:focus-visible {
   }
 
   .brand {
-    gap: 9px;
+    width: 72px;
   }
 
   .brand-logo {
-    width: 52px;
-    height: 52px;
-  }
-
-  .brand-name {
-    margin-top: 5px;
-    font-size: 16px;
-  }
-
-  .brand-subtitle {
-    font-size: 8px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
   }
 
   .header-note {
@@ -924,35 +704,6 @@ input:focus-visible {
     font-size: 9px;
   }
 
-  .admin-header {
-    height: 64px;
-    padding: 0 20px;
-    font-size: 11px;
-  }
-
-  .admin-brand {
-    font-size: 14px;
-  }
-
-  .admin-content {
-    width: calc(100% - 36px);
-    margin: 34px auto 52px;
-  }
-
-  .admin-title-row h1 {
-    font-size: 36px;
-  }
-
-  .admin-back-link {
-    font-size: 11px;
-  }
-
-  .client-card {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 19px;
-  }
-
   .privacy-shell {
     padding: 24px 18px 18px;
   }
@@ -1000,5 +751,408 @@ input:focus-visible {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ================================================================
+   АДАПТИВНОСТЬ И БОЛЬШИЕ ЭКРАНЫ (добавлено в конец файла)
+   --s — коэффициент масштаба: на больших мониторах всё крупнее
+   ================================================================ */
+
+:root {
+  --s: 1;
+}
+
+@media (min-width: 1600px) {
+  :root { --s: 1.2; }
+}
+
+@media (min-width: 2200px) {
+  :root { --s: 1.55; }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+.page-shell,
+.privacy-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ---------- Планшеты и компьютеры (от 641px) ---------- */
+@media (min-width: 641px) {
+  .page-shell {
+    padding: calc(28px * var(--s)) calc(32px * var(--s)) calc(22px * var(--s));
+  }
+
+  .page-shell::before,
+  .page-shell::after {
+    width: calc(340px * var(--s));
+    height: calc(340px * var(--s));
+  }
+
+  .page-shell::after {
+    width: calc(410px * var(--s));
+    height: calc(410px * var(--s));
+  }
+
+  .site-header,
+  .welcome-section,
+  .site-footer {
+    width: min(100%, calc(1360px * var(--s)));
+  }
+
+  .brand-logo {
+    width: calc(104px * var(--s));
+    height: calc(104px * var(--s));
+  }
+
+  .header-note {
+    font-size: calc(16px * var(--s));
+  }
+
+  .flower-mark {
+    width: calc(44px * var(--s));
+    height: calc(44px * var(--s));
+  }
+
+  .eyebrow {
+    margin: calc(14px * var(--s)) 0 calc(12px * var(--s));
+    font-size: calc(12px * var(--s));
+  }
+
+  .welcome-section h1 {
+    font-size: clamp(36px, 5vw, calc(50px * var(--s)));
+  }
+
+  .welcome-copy {
+    margin: calc(16px * var(--s)) 0 calc(26px * var(--s));
+    font-size: calc(16px * var(--s));
+  }
+
+  .loyalty-form,
+  .result-panel {
+    width: min(100%, calc(640px * var(--s)));
+    padding: calc(30px * var(--s)) calc(36px * var(--s)) calc(28px * var(--s));
+  }
+
+  .form-step {
+    width: calc(30px * var(--s));
+    height: calc(30px * var(--s));
+    flex-basis: calc(30px * var(--s));
+    font-size: calc(13px * var(--s));
+  }
+
+  .form-heading {
+    gap: calc(12px * var(--s));
+  }
+
+  .form-heading h2 {
+    font-size: calc(22px * var(--s));
+  }
+
+  .field {
+    gap: calc(8px * var(--s));
+    margin-top: calc(20px * var(--s));
+    font-size: calc(14px * var(--s));
+  }
+
+  .field input {
+    min-height: calc(52px * var(--s));
+    padding: 0 calc(16px * var(--s));
+    font-size: calc(16px * var(--s));
+  }
+
+  .field-hint {
+    font-size: calc(12px * var(--s));
+  }
+
+  .dates-heading {
+    margin-top: calc(28px * var(--s));
+  }
+
+  .dates-heading .form-heading p {
+    margin-top: calc(5px * var(--s));
+    font-size: calc(13px * var(--s));
+  }
+
+  .optional-label {
+    font-size: calc(12px * var(--s));
+  }
+
+  .date-entry {
+    padding: 0 calc(16px * var(--s)) calc(16px * var(--s));
+  }
+
+  .date-entry legend {
+    font-size: calc(11px * var(--s));
+  }
+
+  .date-entry .field input {
+    min-height: calc(48px * var(--s));
+  }
+
+  .remove-date {
+    width: calc(32px * var(--s));
+    height: calc(32px * var(--s));
+    font-size: calc(24px * var(--s));
+  }
+
+  .add-date-button {
+    min-height: calc(46px * var(--s));
+    padding: 0 calc(16px * var(--s));
+    font-size: calc(14px * var(--s));
+  }
+
+  .consent-field {
+    gap: calc(10px * var(--s));
+    margin-top: calc(22px * var(--s));
+    font-size: calc(13px * var(--s));
+  }
+
+  .consent-field input {
+    width: calc(18px * var(--s));
+    height: calc(18px * var(--s));
+    flex-basis: calc(18px * var(--s));
+  }
+
+  .submit-button {
+    min-height: calc(56px * var(--s));
+    margin-top: calc(22px * var(--s));
+    font-size: calc(15px * var(--s));
+  }
+
+  .form-footnote {
+    margin-top: calc(14px * var(--s));
+    font-size: calc(12px * var(--s));
+  }
+
+  .success-flower {
+    font-size: calc(36px * var(--s));
+  }
+
+  .result-panel h2 {
+    font-size: calc(28px * var(--s));
+  }
+
+  .loyalty-card {
+    min-height: calc(220px * var(--s));
+    padding: calc(24px * var(--s));
+  }
+
+  .card-overline {
+    font-size: calc(10px * var(--s));
+  }
+
+  .card-brand {
+    font-size: calc(26px * var(--s));
+  }
+
+  .card-flower {
+    font-size: calc(38px * var(--s));
+  }
+
+  .card-holder {
+    font-size: calc(17px * var(--s));
+  }
+
+  .card-number {
+    font-size: calc(14px * var(--s));
+  }
+
+  .card-saved-dates {
+    font-size: calc(12px * var(--s));
+  }
+
+  .result-hint {
+    font-size: calc(14px * var(--s));
+  }
+
+  .site-footer {
+    font-size: calc(12px * var(--s));
+  }
+
+  .privacy-shell {
+    padding: calc(34px * var(--s)) calc(24px * var(--s)) calc(24px * var(--s));
+  }
+
+  .privacy-brand {
+    width: min(100%, calc(760px * var(--s)));
+    font-size: calc(18px * var(--s));
+  }
+
+  .privacy-content {
+    width: min(100%, calc(760px * var(--s)));
+    margin-top: calc(54px * var(--s));
+    padding: calc(38px * var(--s)) calc(44px * var(--s));
+  }
+
+  .privacy-content h1 {
+    font-size: clamp(31px, 5vw, calc(42px * var(--s)));
+  }
+
+  .privacy-content h2 {
+    font-size: calc(22px * var(--s));
+  }
+
+  .privacy-content > p:not(.eyebrow) {
+    font-size: calc(16px * var(--s));
+  }
+
+  .privacy-back {
+    font-size: calc(14px * var(--s));
+  }
+
+  .privacy-footer {
+    width: min(100%, calc(760px * var(--s)));
+    font-size: calc(12px * var(--s));
+  }
+}
+
+/* ---------- Компьютеры: две колонки (от 1000px) ---------- */
+@media (min-width: 1000px) {
+  .welcome-section {
+    gap: clamp(42px, 6vw, calc(110px * var(--s)));
+  }
+
+  .welcome-intro {
+    max-width: calc(600px * var(--s));
+  }
+
+  .welcome-section h1 {
+    font-size: clamp(42px, 4vw, calc(56px * var(--s)));
+  }
+
+  .loyalty-form,
+  .result-panel {
+    width: 100%;
+    max-width: calc(680px * var(--s));
+    justify-self: center;
+    padding: calc(34px * var(--s)) calc(40px * var(--s)) calc(30px * var(--s));
+  }
+}
+
+/* ---------- Телефоны (до 640px) ---------- */
+@media (max-width: 640px) {
+  .eyebrow {
+    font-size: 11px;
+  }
+
+  .header-note {
+    max-width: 130px;
+    font-size: 13px;
+  }
+
+  .welcome-copy {
+    font-size: 15px;
+  }
+
+  .field {
+    font-size: 14px;
+  }
+
+  .field-hint,
+  .optional-label,
+  .dates-heading .form-heading p,
+  .form-footnote {
+    font-size: 12px;
+  }
+
+  .date-entry legend {
+    font-size: 11px;
+  }
+
+  .remove-date {
+    top: -4px;
+    right: 2px;
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+  }
+
+  .add-date-button {
+    min-height: 48px;
+    font-size: 14px;
+  }
+
+  .consent-field {
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .consent-field input {
+    width: 20px;
+    height: 20px;
+    flex-basis: 20px;
+  }
+
+  .submit-button {
+    min-height: 56px;
+    font-size: 15px;
+  }
+
+  .card-overline {
+    font-size: 10px;
+  }
+
+  .card-brand {
+    font-size: 21px;
+  }
+
+  .card-holder {
+    max-width: 100%;
+    font-size: 16px;
+  }
+
+  .card-number {
+    font-size: 14px;
+  }
+
+  .card-saved-dates {
+    font-size: 11px;
+  }
+
+  .result-hint {
+    font-size: 14px;
+  }
+
+  .site-footer {
+    font-size: 12px;
+  }
+
+  .privacy-content > p:not(.eyebrow) {
+    font-size: 15px;
+  }
+}
+
+/* Длинные имена на карте не должны вылезать за края */
+.card-holder {
+  overflow-wrap: anywhere;
+}
+
+/* Очень узкие телефоны (до 360px) */
+@media (max-width: 360px) {
+  .page-shell {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .loyalty-form,
+  .result-panel {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .welcome-section h1 {
+    font-size: 31px;
+  }
+}
+
+/* Телефон в горизонтальном положении: меньше пустоты по вертикали */
+@media (max-height: 520px) and (orientation: landscape) {
+  .welcome-section {
+    padding-top: 16px;
   }
 }

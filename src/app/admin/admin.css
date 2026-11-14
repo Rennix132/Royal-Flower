@@ -1,0 +1,220 @@
+/* Админ-панель ROYAL FLOWERS. Размеры в em: масштабируются от --s из globals.css */
+
+.adm {
+  max-width: min(100%, calc(1240px * var(--s)));
+  margin: 0 auto;
+  padding: 1.6em 1.1em 4em;
+  color: var(--ink);
+  font-size: calc(15px * var(--s));
+}
+
+.adm h1 { margin: 0; font-family: var(--serif); font-size: 1.9em; font-weight: 400; }
+.adm h2 { margin: 0; font-family: var(--serif); font-size: 1.35em; font-weight: 400; }
+
+/* ---------- Вход: карточка по центру экрана ---------- */
+.adm:has(> .adm-login) {
+  display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
+  place-items: center;
+  padding-top: 1.2em;
+  padding-bottom: 1.2em;
+}
+
+/* Фон на всю страницу, а не только за карточкой */
+body:has(.adm-login) {
+  background:
+    radial-gradient(ellipse at 15% 20%, rgb(213 164 170 / 14%), transparent 40%),
+    radial-gradient(ellipse at 85% 80%, rgb(224 185 178 / 18%), transparent 40%),
+    #fbf5f2;
+}
+
+.adm-login {
+  display: grid;
+  width: min(100%, 24em);
+  gap: 0.9em;
+  padding: 2.2em 1.9em 1.9em;
+  border: 1px solid rgb(130 93 101 / 11%);
+  border-radius: 0.5em;
+  background: rgb(255 253 251 / 96%);
+  box-shadow: 0 18px 56px rgb(101 64 72 / 10%);
+}
+
+.adm-login h1 {
+  margin: 0 0 0.35em;
+  font-size: 1.45em;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.adm-login h1::after {
+  display: block;
+  margin-top: 0.4em;
+  color: var(--muted);
+  content: "Вход для сотрудников";
+  font-family: var(--sans);
+  font-size: 0.5em;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Поля и кнопки ---------- */
+.adm input,
+.adm select {
+  min-width: 0;
+  min-height: 2.9em;
+  padding: 0.6em 0.85em;
+  border: 1px solid #e8dfde;
+  border-radius: 0.4em;
+  background: #fff;
+  color: var(--ink);
+  font-size: 1em;
+}
+
+.adm input:focus,
+.adm select:focus {
+  border-color: #c28a96;
+  box-shadow: 0 0 0 3px rgb(194 138 150 / 14%);
+  outline: none;
+}
+
+.adm button,
+.adm .adm-btn {
+  display: inline-flex;
+  min-height: 2.8em;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6em 1.1em;
+  border: 1px solid var(--rose);
+  border-radius: 0.4em;
+  background: var(--rose);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.93em;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 150ms ease;
+}
+
+.adm button:hover:not(:disabled) { background: var(--rose-dark); }
+.adm button.ghost,
+.adm .adm-btn.ghost { background: #fff; color: var(--rose-dark); }
+.adm button.ghost:hover:not(:disabled),
+.adm .adm-btn.ghost:hover { background: var(--rose-light); }
+.adm button.danger { border-color: #b3261e; background: #b3261e; }
+.adm button.danger:hover:not(:disabled) { background: #8f1d17; }
+.adm button:disabled { cursor: default; opacity: 0.6; }
+
+/* ---------- Верх и поиск ---------- */
+.adm-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8em;
+  margin-bottom: 1.3em;
+}
+
+.adm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.adm-search {
+  width: 100%;
+  min-height: 3.2em !important;
+  margin-bottom: 1em;
+  font-size: 1.05em !important;
+}
+
+/* ---------- Таблица ---------- */
+.adm-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 0.6em;
+  background: #fff;
+  box-shadow: 0 10px 32px rgb(101 64 72 / 6%);
+}
+
+.adm table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
+
+.adm th {
+  background: #fbf3f2;
+  color: var(--muted);
+  font-size: 0.8em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.adm th,
+.adm td {
+  padding: 0.85em 1em;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.adm tbody tr { cursor: pointer; }
+.adm tbody tr:hover { background: var(--rose-light); }
+.adm tbody tr:last-child td { border-bottom: 0; }
+
+.adm-error { margin: 0.6em 0; color: #b3261e; }
+.adm-ok { margin: 0.6em 0; color: #1b7a3d; }
+.adm-muted { color: var(--muted); font-size: 0.9em; }
+
+/* ---------- Карточка клиента (выезжает справа) ---------- */
+.adm-overlay {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  background: rgb(52 38 44 / 45%);
+}
+
+.adm-drawer {
+  display: grid;
+  width: min(100%, 38em);
+  height: 100%;
+  align-content: start;
+  gap: 1em;
+  overflow-y: auto;
+  padding: 1.4em;
+  background: var(--paper);
+  font-size: calc(15px * var(--s));
+}
+
+.adm-card {
+  display: grid;
+  gap: 0.7em;
+  padding: 1.1em;
+  border: 1px solid var(--line);
+  border-radius: 0.6em;
+  background: #fff;
+}
+
+.adm-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 0.5em; }
+.adm-inline { display: grid; grid-template-columns: auto 1fr; gap: 0.5em; }
+
+.adm-tx {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8em;
+  padding: 0.5em 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.93em;
+}
+
+.adm .plus { color: #1b7a3d; }
+.adm .minus { color: #b3261e; }
+
+/* ---------- Телефоны ---------- */
+@media (max-width: 640px) {
+  .adm { padding: 1.1em 0.9em 3em; }
+  .adm-row { grid-template-columns: 1fr; }
+  .adm-top { align-items: flex-start; }
+  .adm-drawer { padding: 1em; }
+  .adm input, .adm select { font-size: 16px; } /* iPhone не «зумит» при вводе */
+  .adm button, .adm .adm-btn { min-height: 3em; }
+}
