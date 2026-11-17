@@ -209,6 +209,63 @@ body:has(.adm-login) {
 .adm .plus { color: #1b7a3d; }
 .adm .minus { color: #b3261e; }
 
+/* ---------- Колокольчик уведомлений ---------- */
+.adm-bell { position: relative; }
+
+.adm .adm-bell-btn {
+  position: relative;
+  min-width: 2.8em;
+  font-size: 1.1em;
+}
+
+.adm-bell-badge {
+  position: absolute;
+  top: -0.45em;
+  right: -0.45em;
+  min-width: 1.5em;
+  padding: 0.1em 0.4em;
+  border-radius: 1em;
+  background: #b3261e;
+  color: #fff;
+  font-size: 0.7em;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.adm-bell-panel {
+  position: absolute;
+  z-index: 8;
+  top: calc(100% + 0.5em);
+  right: 0;
+  display: grid;
+  width: min(24em, 86vw);
+  max-height: 70vh;
+  gap: 0.5em;
+  overflow-y: auto;
+  padding: 1em;
+  border: 1px solid var(--line);
+  border-radius: 0.6em;
+  background: #fff;
+  box-shadow: 0 16px 44px rgb(101 64 72 / 18%);
+}
+
+.adm .adm-bell-item {
+  display: grid;
+  height: auto;
+  justify-items: start;
+  gap: 0.15em;
+  padding: 0.7em 0.8em;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  font-weight: 400;
+  text-align: left;
+}
+
+.adm .adm-bell-item:hover:not(:disabled) { background: var(--rose-light); }
+.adm-bell-when { color: var(--rose-dark); font-weight: 700; }
+.adm-bell-when.today { color: #b3261e; }
+
 /* ---------- Телефоны ---------- */
 @media (max-width: 640px) {
   .adm { padding: 1.1em 0.9em 3em; }
@@ -217,4 +274,5 @@ body:has(.adm-login) {
   .adm-drawer { padding: 1em; }
   .adm input, .adm select { font-size: 16px; } /* iPhone не «зумит» при вводе */
   .adm button, .adm .adm-btn { min-height: 3em; }
+  .adm-bell-panel { position: fixed; top: 4.5em; right: 0.9em; left: 0.9em; width: auto; }
 }

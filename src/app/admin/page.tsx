@@ -26,6 +26,72 @@ async function api<T = unknown>(url: string, init: RequestInit = {}): Promise<T>
 
 const when = (iso: string) => new Date(iso).toLocaleString("ru-RU");
 
+type Reminder = {
+  clientId: string;
+  clientName: string;
+  phone: string;
+  person: string;
+  relation: string;
+  date: string;
+  days: number;
+  when: string;
+};
+
+function Bell({ onOpen, onLogout }: { onOpen: (id: string) => void; onLogout: () => void }) {
+  const [items, setItems] = useState<Reminder[]>([]);
+  const [open, setOpen] = useState(false);
+
+  const load = useCallback(async () => {
+    try {
+      const data = await api<{ items: Reminder[] }>("/api/admin/reminders");
+      setItems(data.items);
+    } catch (err) {
+      if ((err as { status?: number }).status === 401) onLogout();
+    }
+  }, [onLogout]);
+
+  useEffect(() => {
+    load();
+    const timer = setInterval(load, 5 * 60 * 1000);
+    return () => clearInterval(timer);
+  }, [load]);
+
+  return (
+    <div className="adm-bell">
+      <button
+        aria-label={`Уведомления: ${items.length}`}
+        className="ghost adm-bell-btn"
+        onClick={() => { setOpen((v) => !v); if (!open) load(); }}
+        type="button"
+      >
+        🔔
+        {items.length > 0 && <span className="adm-bell-badge">{items.length}</span>}
+      </button>
+
+      {open && (
+        <div className="adm-bell-panel">
+          <strong>Скоро важные даты</strong>
+          {items.length === 0 && <span className="adm-muted">В ближайшие 2 дня событий нет</span>}
+          {items.map((r, i) => (
+            <button
+              className="adm-bell-item"
+              key={i}
+              onClick={() => { setOpen(false); onOpen(r.clientId); }}
+              type="button"
+            >
+              <span className={r.days === 0 ? "adm-bell-when today" : "adm-bell-when"}>
+                {r.when} · {r.date}
+              </span>
+              <span>{r.person} ({r.relation})</span>
+              <span className="adm-muted">{r.clientName} · {r.phone}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AdminPage() {
   const [me, setMe] = useState<Me | null | undefined>(undefined); // undefined = загрузка
   const logoutLocal = useCallback(() => setMe(null), []);
@@ -106,6 +172,7 @@ function Panel({ me, onLogout }: { me: Me; onLogout: () => void }) {
       <div className="adm-top">
         <h1>Клиенты</h1>
         <div className="adm-actions">
+          <Bell onLogout={onLogout} onOpen={setOpenId} />
           <span className="adm-muted">{me.email} · {me.role === "owner" ? "владелец" : "сотрудник"}</span>
           {me.role === "owner" && (
             <>
